@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Sync - Enterprise Software Solutions & AI Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        
+        .cyber-glow {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #3b82f6;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #3b82f6; }
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link.active {
+            color: #60a5fa !important;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Chat Bot Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(59, 130, 246, 0.8); }
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUpChat 0.3s ease-out;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUpChat {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chat-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: between;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            max-height: 350px;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            animation: fadeInMessage 0.3s ease-out;
+        }
+
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+
+        .chat-message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message-bubble.user {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .message-bubble.bot {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #e2e8f0;
+            margin-right: 1rem;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 18px;
+            margin-right: 1rem;
+            max-width: 80%;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1); }
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quick-action-btn {
+            padding: 0.5rem 0.75rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            color: #60a5fa;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .chat-window {
+                width: 300px;
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold">Cyber Sync</div>
+                        <div class="text-xs text-blue-400">Official Maplesoft Partner</div>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex space-x-8">
+                    <a href="#" onclick="showPage('home')" class="nav-link active hover:text-blue-300 transition-colors">Home</a>
+                    <div class="relative group">
+                        <a href="#" onclick="showPage('products')" class="nav-link hover:text-blue-400 transition-colors flex items-center">
+                            Products
+                            <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </a>
+                        <div class="absolute top-full left-0 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="p-2">
+                                <a href="#" onclick="showPage('maple-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-green-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">Maple</div>
+                                    <div class="text-xs text-slate-400">Mathematical Computing Platform</div>
+                                </a>
+                                <a href="#" onclick="showPage('maplesim-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-green-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">MapleSim</div>
+                                    <div class="text-xs text-slate-400">System-Level Modeling & Simulation</div>
+                                </a>
+                                <a href="#" onclick="showPage('spss-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-blue-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">IBM SPSS Statistics</div>
+                                    <div class="text-xs text-slate-400">Statistical Analysis Software</div>
+                                </a>
+                                <a href="#" onclick="showPage('matlab-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-orange-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">MATLAB</div>
+                                    <div class="text-xs text-slate-400">Technical Computing Platform</div>
+                                </a>
+                                <a href="#" onclick="showPage('simulink-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-red-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">Simulink</div>
+                                    <div class="text-xs text-slate-400">Block Diagram Environment</div>
+                                </a>
+                                <a href="#" onclick="showPage('ansys-product')" class="block px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-yellow-400 rounded-lg transition-colors">
+                                    <div class="font-semibold">Ansys</div>
+                                    <div class="text-xs text-slate-400">Engineering Simulation Software</div>
+                                </a>
+                                <div class="border-t border-slate-700 mt-2 pt-2">
+                                    <a href="#" onclick="showPage('products')" class="block px-4 py-2 text-sm text-blue-400 hover:bg-slate-700 rounded-lg transition-colors">
+                                        View All Products →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" onclick="showPage('student-success')" class="nav-link hover:text-blue-400 transition-colors">Student Success</a>
+                    <a href="#" onclick="showPage('services')" class="nav-link hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#" onclick="showPage('blogs')" class="nav-link hover:text-blue-400 transition-colors">Blogs</a>
+                    <a href="#" onclick="showPage('about')" class="nav-link hover:text-blue-400 transition-colors">About</a>
+                    <a href="#" onclick="showPage('contact')" class="nav-link hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-4">
+                    <button onclick="openModal('signin')" class="text-slate-300 hover:text-white transition-colors">Sign In</button>
+                    <button onclick="openModal('signup')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-2 rounded-lg font-semibold transition-all">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="gradient-bg min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="inline-flex items-center space-x-2 bg-blue-600/20 px-4 py-2 rounded-full border border-blue-600/30">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Official Maplesoft Partner in India</span>
+                        </div>
+                        
+                        <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+                            Transforming Enterprises with
+                            <span class="text-blue-400 typing-animation">Intelligence & Innovation</span>
+                        </h1>
+                        
+                        <p class="text-xl text-slate-300 leading-relaxed">
+                            At Cyber Sync, we deliver end-to-end technology solutions that help organizations innovate faster, 
+                            reduce costs, and build future-ready systems. From engineering simulations to AI-driven automation.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('products')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold transition-all cyber-glow">
+                                Explore Products
+                            </button>
+                            <button onclick="showPage('student-success')" class="border border-slate-600 hover:border-blue-400 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Student Success Platform
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="animate-float">
+                            <svg class="w-full h-96 text-blue-400" viewBox="0 0 400 300" fill="none">
+                                <defs>
+                                    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                
+                                <circle cx="200" cy="150" r="80" fill="url(#brainGradient)" opacity="0.2" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="200" cy="150" r="60" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+                                <circle cx="200" cy="150" r="40" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                                
+                                <circle cx="160" cy="120" r="8" fill="#10b981" class="animate-pulse"/>
+                                <circle cx="240" cy="120" r="8" fill="#10b981" class="animate-pulse"/>
+                                <circle cx="160" cy="180" r="8" fill="#10b981" class="animate-pulse"/>
+                                <circle cx="240" cy="180" r="8" fill="#10b981" class="animate-pulse"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Success Platform Preview Section -->
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center space-x-2 bg-purple-600/20 px-4 py-2 rounded-full border border-purple-600/30 mb-6">
+                        <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Educational Excellence</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                        Revolutionizing Higher Education with the
+                        <span class="text-purple-400">Student Success Platform</span>
+                    </h2>
+                    <p class="text-xl text-slate-300 max-w-4xl mx-auto mb-12">
+                        Transform your institution's approach to student engagement, learning analytics, and academic success 
+                        with Maplesoft's comprehensive educational technology solution.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                    <div class="stat-card p-8 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-green-400 mb-2">85%</div>
+                        <div class="text-slate-300">Improvement in Student Engagement</div>
+                    </div>
+                    <div class="stat-card p-8 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">40%</div>
+                        <div class="text-slate-300">Reduction in Course Drop Rates</div>
+                    </div>
+                    <div class="stat-card p-8 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">92%</div>
+                        <div class="text-slate-300">Faculty Satisfaction Rate</div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="showPage('student-success')" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold transition-all mr-4">
+                        Explore Student Success Platform
+                    </button>
+                    <button onclick="showPage('contact')" class="border border-purple-600 hover:bg-purple-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Request Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Products Page -->
+    <div id="products" class="page">
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold mb-6">Our Products</h1>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                        Comprehensive suite of advanced software solutions for mathematical computing, statistical analysis, 
+                        simulation, and educational technology.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Maple -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('maple-product')">
+                        <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-green-400">Maple</h3>
+                        <p class="text-slate-400 mb-6">
+                            Advanced mathematical computing platform with symbolic computation, numeric analysis, 
+                            and interactive document environment for research and education.
+                        </p>
+                        <div class="flex items-center text-green-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- MapleSim -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('maplesim-product')">
+                        <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-green-400">MapleSim</h3>
+                        <p class="text-slate-400 mb-6">
+                            System-level modeling and simulation platform for multi-domain physical systems 
+                            with real-time simulation capabilities and automatic code generation.
+                        </p>
+                        <div class="flex items-center text-green-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- SPSS -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('spss-product')">
+                        <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-400">IBM SPSS Statistics</h3>
+                        <p class="text-slate-400 mb-6">
+                            Comprehensive statistical analysis software with advanced analytics, 
+                            machine learning capabilities, and predictive modeling for data-driven insights.
+                        </p>
+                        <div class="flex items-center text-blue-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- MATLAB -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('matlab-product')">
+                        <div class="w-16 h-16 bg-orange-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-orange-400">MATLAB</h3>
+                        <p class="text-slate-400 mb-6">
+                            Technical computing platform for algorithm development, data analysis, 
+                            visualization, and numeric computation with extensive toolbox ecosystem.
+                        </p>
+                        <div class="flex items-center text-orange-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Simulink -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('simulink-product')">
+                        <div class="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-red-400">Simulink</h3>
+                        <p class="text-slate-400 mb-6">
+                            Block diagram environment for multidomain simulation and Model-Based Design 
+                            with automatic code generation and real-time testing capabilities.
+                        </p>
+                        <div class="flex items-center text-red-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Ansys -->
+                    <div class="product-card p-8 rounded-xl" onclick="showPage('ansys-product')">
+                        <div class="w-16 h-16 bg-yellow-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400">Ansys</h3>
+                        <p class="text-slate-400 mb-6">
+                            Engineering simulation software for structural, thermal, fluid, and electromagnetic analysis 
+                            with advanced multiphysics capabilities for product development.
+                        </p>
+                        <div class="flex items-center text-yellow-400 font-semibold">
+                            Learn More
+                            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold transition-all mr-4">
+                        Request Product Demo
+                    </button>
+                    <button class="border border-blue-600 hover:bg-blue-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Get Pricing Quote
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Student Success Platform Page -->
+    <div id="student-success" class="page">
+        <!-- Hero Section -->
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center space-x-2 bg-purple-600/20 px-4 py-2 rounded-full border border-purple-600/30 mb-6">
+                        <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Maplesoft Educational Technology</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                        Student Success
+                        <span class="text-purple-400">Platform</span>
+                    </h1>
+                    <p class="text-xl text-slate-300 max-w-4xl mx-auto mb-12">
+                        Transform your institution with comprehensive educational technology that improves student outcomes, 
+                        enhances learning experiences, and provides actionable insights for academic success.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                            Request Demo
+                        </button>
+                        <button class="border border-purple-600 hover:bg-purple-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                            Download Brochure
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Benefits Section -->
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Why Choose Student Success Platform?</h2>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                        Proven results that transform educational outcomes and institutional effectiveness
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="stat-card p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-green-400 mb-2">85%</div>
+                        <div class="text-slate-300 text-sm">Increase in Student Engagement</div>
+                    </div>
+                    <div class="stat-card p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-blue-400 mb-2">40%</div>
+                        <div class="text-slate-300 text-sm">Reduction in Drop-out Rates</div>
+                    </div>
+                    <div class="stat-card p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-purple-400 mb-2">60%</div>
+                        <div class="text-slate-300 text-sm">Improvement in Course Completion</div>
+                    </div>
+                    <div class="stat-card p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-orange-400 mb-2">92%</div>
+                        <div class="text-slate-300 text-sm">Faculty Satisfaction Rate</div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Improved Student Outcomes</h3>
+                        <p class="text-slate-400">
+                            Increase student success rates with personalized learning paths, early intervention systems, 
+                            and comprehensive progress tracking that identifies at-risk students before they fall behind.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Data-Driven Insights</h3>
+                        <p class="text-slate-400">
+                            Make informed decisions with comprehensive analytics and reporting tools that provide 
+                            real-time insights into student performance, engagement patterns, and institutional effectiveness.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Enhanced Learning Experience</h3>
+                        <p class="text-slate-400">
+                            Create engaging, interactive learning environments with adaptive content delivery, 
+                            collaborative tools, and multimedia resources that cater to diverse learning styles.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Features Section -->
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Comprehensive Platform Features</h2>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                        Everything you need to support student success from enrollment to graduation
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 mb-16">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-8">Learning Analytics & Assessment</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Real-time Performance Tracking</h4>
+                                    <p class="text-slate-400">Monitor student progress with detailed analytics and automated alerts for early intervention.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Adaptive Assessment Tools</h4>
+                                    <p class="text-slate-400">Create personalized assessments that adapt to individual learning needs and competency levels.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Predictive Analytics</h4>
+                                    <p class="text-slate-400">Identify at-risk students early with machine learning algorithms and predictive modeling.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-bold mb-8">Student Engagement & Support</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Personalized Learning Paths</h4>
+                                    <p class="text-slate-400">Customize educational journeys based on individual strengths, weaknesses, and learning preferences.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Interactive Communication Tools</h4>
+                                    <p class="text-slate-400">Foster collaboration with integrated messaging, discussion forums, and virtual office hours.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Academic Support Services</h4>
+                                    <p class="text-slate-400">Connect students with tutoring, counseling, and academic resources when they need help most.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-8">Faculty & Administrative Tools</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Comprehensive Dashboards</h4>
+                                    <p class="text-slate-400">Access real-time insights with customizable dashboards for faculty, advisors, and administrators.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Automated Reporting</h4>
+                                    <p class="text-slate-400">Generate detailed reports on student progress, course effectiveness, and institutional metrics.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Integration Capabilities</h4>
+                                    <p class="text-slate-400">Seamlessly integrate with existing LMS, SIS, and other educational technology systems.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-bold mb-8">Success Outcomes</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Improved Retention Rates</h4>
+                                    <p class="text-slate-400">Reduce student dropout rates by up to 40% through early intervention and personalized support.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Enhanced Academic Performance</h4>
+                                    <p class="text-slate-400">Boost student grades and course completion rates with targeted academic interventions.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Institutional Excellence</h4>
+                                    <p class="text-slate-400">Achieve higher accreditation scores and institutional rankings through data-driven improvements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation & Support Section -->
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Implementation & Support</h2>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                        Comprehensive support from planning to deployment and beyond
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Strategic Planning</h3>
+                        <p class="text-slate-400 mb-6">
+                            Work with our experts to develop a customized implementation strategy that aligns with your institutional goals and existing infrastructure.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Needs assessment and gap analysis</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Custom deployment roadmap</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Change management support</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Training & Onboarding</h3>
+                        <p class="text-slate-400 mb-6">
+                            Comprehensive training programs ensure your faculty and staff can maximize the platform's potential from day one.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Faculty training workshops</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Administrator certification</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Student orientation programs</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Ongoing Support</h3>
+                        <p class="text-slate-400 mb-6">
+                            24/7 technical support and continuous optimization ensure your platform delivers maximum value throughout its lifecycle.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>24/7 technical support</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>Regular platform updates</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>Performance optimization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold mb-6">Ready to Transform Student Success?</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                    Join leading institutions worldwide that are revolutionizing education with the Student Success Platform. 
+                    Schedule a personalized demo to see how we can help your institution achieve better outcomes.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="showPage('contact')" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Schedule Demo
+                    </button>
+                    <button onclick="showPage('contact')" class="border border-purple-600 hover:bg-purple-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Contact Sales Team
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold mb-6">Our Services</h1>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                        Comprehensive technology services designed to accelerate your digital transformation and maximize ROI.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="service-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Software Implementation</h3>
+                        <p class="text-slate-400 mb-6">
+                            End-to-end implementation services for Maple, SPSS, and other enterprise software solutions with customized deployment strategies.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Custom installation and configuration</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Integration with existing systems</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span>Performance optimization</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Training & Education</h3>
+                        <p class="text-slate-400 mb-6">
+                            Comprehensive training programs designed to maximize user adoption and proficiency across all software platforms.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Instructor-led workshops</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Online learning modules</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span>Certification programs</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Technical Support</h3>
+                        <p class="text-slate-400 mb-6">
+                            24/7 technical support and maintenance services to ensure optimal performance and minimal downtime.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>Round-the-clock support</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>Remote troubleshooting</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                                <span>Preventive maintenance</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card p-8 rounded-xl">
+                        <div class="w-16 h-16 bg-orange-600 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Consulting & Analytics</h3>
+                        <p class="text-slate-400 mb-6">
+                            Strategic consulting services to help organizations leverage data analytics and mathematical modeling for business insights.
+                        </p>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                                <span>Data strategy development</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                                <span>Custom analytics solutions</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-orange-400 rounded-full"></span>
+                                <span>Business intelligence reporting</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blogs Page -->
+    <div id="blogs" class="page">
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold mb-6">Latest Insights & Updates</h1>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                        Stay informed with the latest trends, tutorials, and insights in mathematical computing, 
+                        statistical analysis, and educational technology.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured Blog Post -->
+                    <div class="blog-card p-6 rounded-xl lg:col-span-2">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">Featured</span>
+                            <span class="text-slate-400 text-sm">December 15, 2024</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4">
+                            Revolutionizing Engineering Design with MapleSim: A Complete Guide to Multi-Domain Modeling
+                        </h2>
+                        <p class="text-slate-400 mb-6">
+                            Discover how MapleSim is transforming the engineering design process through advanced multi-domain 
+                            modeling capabilities. Learn about real-world applications, best practices, and implementation strategies 
+                            that are helping organizations reduce development time by up to 40%.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-semibold text-sm">CS</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Cyber Sync Team</div>
+                                    <div class="text-slate-400 text-sm">Technical Writers</div>
+                                </div>
+                            </div>
+                            <button class="text-blue-400 hover:text-blue-300 font-semibold">Read More →</button>
+                        </div>
+                    </div>
+
+                    <!-- Regular Blog Posts -->
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">Tutorial</span>
+                            <span class="text-slate-400 text-sm">Dec 12, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            Getting Started with Maple: Essential Functions for Mathematical Research
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            A comprehensive beginner's guide to Maple's core functionality, covering symbolic computation, 
+                            plotting, and document creation.
+                        </p>
+                        <button class="text-green-400 hover:text-green-300 font-semibold">Read More →</button>
+                    </div>
+
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">Case Study</span>
+                            <span class="text-slate-400 text-sm">Dec 10, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            How IIT Delhi Improved Student Outcomes with Our Student Success Platform
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            Learn how one of India's premier institutions leveraged our educational technology to enhance 
+                            student engagement and academic performance.
+                        </p>
+                        <button class="text-purple-400 hover:text-purple-300 font-semibold">Read More →</button>
+                    </div>
+
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-medium">Industry</span>
+                            <span class="text-slate-400 text-sm">Dec 8, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            The Future of Statistical Analysis: SPSS Trends for 2025
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            Explore emerging trends in statistical software and how SPSS is evolving to meet the demands 
+                            of modern data science.
+                        </p>
+                        <button class="text-orange-400 hover:text-orange-300 font-semibold">Read More →</button>
+                    </div>
+
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">Technical</span>
+                            <span class="text-slate-400 text-sm">Dec 5, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            MATLAB vs Simulink: Choosing the Right Tool for Your Project
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            A detailed comparison of MATLAB and Simulink capabilities to help you make informed decisions 
+                            for your technical computing needs.
+                        </p>
+                        <button class="text-red-400 hover:text-red-300 font-semibold">Read More →</button>
+                    </div>
+
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-medium">News</span>
+                            <span class="text-slate-400 text-sm">Dec 3, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            Cyber Sync Announces Partnership with Leading Indian Universities
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            We're excited to announce new partnerships that will bring advanced mathematical computing 
+                            tools to thousands of students across India.
+                        </p>
+                        <button class="text-teal-400 hover:text-teal-300 font-semibold">Read More →</button>
+                    </div>
+
+                    <div class="blog-card p-6 rounded-xl">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-medium">Tips</span>
+                            <span class="text-slate-400 text-sm">Nov 30, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">
+                            5 Advanced SPSS Techniques Every Data Analyst Should Know
+                        </h3>
+                        <p class="text-slate-400 mb-4">
+                            Unlock the full potential of SPSS with these advanced techniques for complex statistical 
+                            analysis and data visualization.
+                        </p>
+                        <button class="text-pink-400 hover:text-pink-300 font-semibold">Read More →</button>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold transition-all mr-4">
+                        View All Posts
+                    </button>
+                    <button class="border border-blue-600 hover:bg-blue-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Subscribe to Newsletter
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold mb-6">About Cyber Sync</h1>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                        Leading the digital transformation revolution with cutting-edge technology solutions and unparalleled expertise.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 mb-16">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                        <p class="text-lg text-slate-300 mb-6">
+                            To empower organizations with advanced mathematical, statistical, and analytical tools that drive innovation, 
+                            accelerate research, and transform decision-making processes across industries.
+                        </p>
+                        <p class="text-slate-400 mb-8">
+                            As the official Maplesoft partner in India, we bridge the gap between cutting-edge technology and practical 
+                            business applications, ensuring our clients stay ahead in an increasingly competitive landscape.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <span>15+ years of industry expertise</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <span>500,000+ professionals served</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                </div>
+                                <span>Official partnerships with global leaders</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-6">Ready to Transform Your Organization?</h2>
+                    <p class="text-xl text-slate-300 mb-8">
+                        Join thousands of organizations that trust Cyber Sync for their technology needs.
+                    </p>
+                    <button onclick="showPage('contact')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold transition-all mr-4">
+                        Schedule Consultation
+                    </button>
+                    <button onclick="showPage('contact')" class="border border-blue-600 hover:bg-blue-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                        Contact Us
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="bg-slate-900 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold mb-6">Contact Us</h1>
+                    <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+                        Ready to transform your organization? Get in touch with our experts today.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8">Get In Touch</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-2">Phone</h3>
+                                    <p class="text-slate-400">+91 98765 43210</p>
+                                    <p class="text-slate-400">+91 87654 32109</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-2">Email</h3>
+                                    <p class="text-slate-400">info@cybersync.in</p>
+                                    <p class="text-slate-400">sales@cybersync.in</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold mb-2">Office</h3>
+                                    <p class="text-slate-400">
+                                        123 Tech Park, Sector 62<br>
+                                        Noida, Uttar Pradesh 201309<br>
+                                        India
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-6">Send us a Message</h3>
+                        <form class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">First Name</label>
+                                    <input type="text" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="John">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Last Name</label>
+                                    <input type="text" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Doe">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="john@company.com">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Company</label>
+                                <input type="text" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Your Company">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Message</label>
+                                <textarea rows="4" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Tell us about your requirements..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-3 rounded-lg font-semibold transition-all">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Maple Product Page -->
+    <div id="maple-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-green-600/20 px-4 py-2 rounded-full border border-green-600/30 mb-6">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Mathematical Computing Platform</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-green-400">Maple</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            The world's most advanced mathematical computing platform for research, education, and engineering applications. 
+                            Solve complex mathematical problems with symbolic computation, numeric analysis, and interactive documentation.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-green-600 hover:bg-green-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-green-600 to-blue-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Symbolic Computation</h3>
+                        <p class="text-slate-400">Solve mathematical problems symbolically with exact results and algebraic manipulation.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Numeric Analysis</h3>
+                        <p class="text-slate-400">High-precision numerical computations with advanced algorithms and optimization.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Interactive Documents</h3>
+                        <p class="text-slate-400">Create rich mathematical documents with live calculations and visualizations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MapleSim Product Page -->
+    <div id="maplesim-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-green-600/20 px-4 py-2 rounded-full border border-green-600/30 mb-6">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">System-Level Modeling & Simulation</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-green-400">MapleSim</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            Advanced system-level modeling and simulation platform for multi-domain physical systems. 
+                            Design, simulate, and optimize complex engineering systems with real-time capabilities.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-green-600 hover:bg-green-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-green-600 to-blue-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Multi-Domain Modeling</h3>
+                        <p class="text-slate-400">Model mechanical, electrical, hydraulic, and thermal systems in a single environment.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Real-Time Simulation</h3>
+                        <p class="text-slate-400">Deploy models for real-time testing and hardware-in-the-loop applications.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Code Generation</h3>
+                        <p class="text-slate-400">Automatically generate optimized code for various platforms and applications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SPSS Product Page -->
+    <div id="spss-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-blue-600/20 px-4 py-2 rounded-full border border-blue-600/30 mb-6">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Statistical Analysis Software</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-blue-400">IBM SPSS Statistics</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            Comprehensive statistical analysis software with advanced analytics, machine learning capabilities, 
+                            and predictive modeling for data-driven insights and decision making.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-blue-600 hover:bg-blue-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Advanced Analytics</h3>
+                        <p class="text-slate-400">Comprehensive statistical procedures and advanced analytical techniques.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Machine Learning</h3>
+                        <p class="text-slate-400">Built-in machine learning algorithms for predictive modeling and data mining.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Data Visualization</h3>
+                        <p class="text-slate-400">Create compelling charts, graphs, and reports to communicate insights effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MATLAB Product Page -->
+    <div id="matlab-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-orange-600/20 px-4 py-2 rounded-full border border-orange-600/30 mb-6">
+                            <span class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Technical Computing Platform</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-orange-400">MATLAB</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            The leading technical computing platform for algorithm development, data analysis, visualization, 
+                            and numeric computation with an extensive ecosystem of specialized toolboxes.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-orange-600 hover:bg-orange-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Algorithm Development</h3>
+                        <p class="text-slate-400">Develop and test algorithms with high-level programming language and interactive environment.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Data Analysis</h3>
+                        <p class="text-slate-400">Analyze and visualize data with built-in functions and specialized toolboxes.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">App Development</h3>
+                        <p class="text-slate-400">Create applications and deploy them to desktop, web, and mobile platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Simulink Product Page -->
+    <div id="simulink-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-red-600/20 px-4 py-2 rounded-full border border-red-600/30 mb-6">
+                            <span class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Block Diagram Environment</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-red-400">Simulink</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            Block diagram environment for multidomain simulation and Model-Based Design with automatic code generation 
+                            and real-time testing capabilities for complex systems.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-red-600 hover:bg-red-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-red-600 to-pink-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Model-Based Design</h3>
+                        <p class="text-slate-400">Design and simulate dynamic systems using graphical block diagrams.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Code Generation</h3>
+                        <p class="text-slate-400">Automatically generate C/C++ code for embedded systems and real-time applications.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">System Testing</h3>
+                        <p class="text-slate-400">Verify and validate system behavior through simulation and testing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Ansys Product Page -->
+    <div id="ansys-product" class="page">
+        <section class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-yellow-600/20 px-4 py-2 rounded-full border border-yellow-600/30 mb-6">
+                            <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Engineering Simulation Software</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            <span class="text-yellow-400">Ansys</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8">
+                            Leading engineering simulation software for structural, thermal, fluid, and electromagnetic analysis 
+                            with advanced multiphysics capabilities for comprehensive product development.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="showPage('contact')" class="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Request Demo
+                            </button>
+                            <button onclick="showPage('contact')" class="border border-yellow-600 hover:bg-yellow-600 px-8 py-4 rounded-lg font-semibold transition-all">
+                                Get Pricing
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-slate-800 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Multiphysics Simulation</h3>
+                        <p class="text-slate-400">Simulate complex interactions between structural, thermal, fluid, and electromagnetic phenomena.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Design Optimization</h3>
+                        <p class="text-slate-400">Optimize designs for performance, weight, cost, and manufacturability.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Virtual Prototyping</h3>
+                        <p class="text-slate-400">Reduce physical prototyping costs through comprehensive virtual testing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signin-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Sign In</h2>
+                <button onclick="closeModal('signin')" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="handleSignIn(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="your@email.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="••••••••">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-sm text-slate-400">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-blue-400 hover:text-blue-300">Forgot password?</a>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-lg font-semibold transition-all">
+                    Sign In
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-slate-400">Don't have an account? 
+                    <button onclick="switchModal('signin', 'signup')" class="text-blue-400 hover:text-blue-300">Sign up</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Sign Up</h2>
+                <button onclick="closeModal('signup')" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="handleSignUp(event)" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">First Name</label>
+                        <input type="text" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Last Name</label>
+                        <input type="text" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Doe">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="your@email.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Company</label>
+                    <input type="text" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Your Company">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="••••••••">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Confirm Password</label>
+                    <input type="password" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-blue-500" placeholder="••••••••">
+                </div>
+                <div class="flex items-start">
+                    <input type="checkbox" required class="mt-1 mr-3">
+                    <span class="text-sm text-slate-400">I agree to the <a href="#" class="text-blue-400 hover:text-blue-300">Terms of Service</a> and <a href="#" class="text-blue-400 hover:text-blue-300">Privacy Policy</a></span>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-lg font-semibold transition-all">
+                    Create Account
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-slate-400">Already have an account? 
+                    <button onclick="switchModal('signup', 'signin')" class="text-blue-400 hover:text-blue-300">Sign in</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white">Cyber Sync Assistant</div>
+                        <div class="text-xs text-green-400 flex items-center">
+                            <span class="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></span>
+                            Online
+                        </div>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-message bot">
+                    <div class="message-bubble bot">
+                        👋 Hi! I'm your Cyber Sync assistant. How can I help you today?
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="sendQuickMessage('Tell me about Maple')">About Maple</button>
+                            <button class="quick-action-btn" onclick="sendQuickMessage('Student Success Platform info')">Student Platform</button>
+                            <button class="quick-action-btn" onclick="sendQuickMessage('Request a demo')">Request Demo</button>
+                            <button class="quick-action-btn" onclick="sendQuickMessage('Pricing information')">Pricing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                <button class="chat-send-btn" onclick="sendMessage()" id="send-btn">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chat-button" onclick="toggleChat()" id="chat-button">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 border-t border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-xl font-bold">Cyber Sync</div>
+                            <div class="text-xs text-blue-400">Official Maplesoft Partner</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-6">
+                        Transforming enterprises with advanced mathematical computing, statistical analysis, 
+                        and educational technology solutions.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.221.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12.013C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Products</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" onclick="showPage('maple-product')" class="text-slate-400 hover:text-white transition-colors">Maple</a></li>
+                        <li><a href="#" onclick="showPage('maplesim-product')" class="text-slate-400 hover:text-white transition-colors">MapleSim</a></li>
+                        <li><a href="#" onclick="showPage('spss-product')" class="text-slate-400 hover:text-white transition-colors">IBM SPSS Statistics</a></li>
+                        <li><a href="#" onclick="showPage('matlab-product')" class="text-slate-400 hover:text-white transition-colors">MATLAB</a></li>
+                        <li><a href="#" onclick="showPage('simulink-product')" class="text-slate-400 hover:text-white transition-colors">Simulink</a></li>
+                        <li><a href="#" onclick="showPage('ansys-product')" class="text-slate-400 hover:text-white transition-colors">Ansys</a></li>
+                        <li><a href="#" onclick="showPage('student-success')" class="text-slate-400 hover:text-white transition-colors">Student Success Platform</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" onclick="showPage('services')" class="text-slate-400 hover:text-white transition-colors">Software Implementation</a></li>
+                        <li><a href="#" onclick="showPage('services')" class="text-slate-400 hover:text-white transition-colors">Training & Education</a></li>
+                        <li><a href="#" onclick="showPage('services')" class="text-slate-400 hover:text-white transition-colors">Technical Support</a></li>
+                        <li><a href="#" onclick="showPage('services')" class="text-slate-400 hover:text-white transition-colors">Consulting & Analytics</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Request Demo</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Get Quote</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" onclick="showPage('about')" class="text-slate-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" onclick="showPage('blogs')" class="text-slate-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" onclick="showPage('contact')" class="text-slate-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-slate-400 mb-4 md:mb-0">
+                        © 2024 Cyber Sync. All rights reserved. | Official Maplesoft Partner in India
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the corresponding nav link
+            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+
+
+        // Modal functions
+        function openModal(modalType) {
+            const modal = document.getElementById(modalType + '-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalType) {
+            const modal = document.getElementById(modalType + '-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function switchModal(fromModal, toModal) {
+            closeModal(fromModal);
+            setTimeout(() => {
+                openModal(toModal);
+            }, 200);
+        }
+
+        function handleSignIn(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const email = formData.get('email') || event.target.querySelector('input[type="email"]').value;
+            const password = formData.get('password') || event.target.querySelector('input[type="password"]').value;
+            
+            // Demo functionality - show success message
+            alert(`Welcome back! Sign in successful for ${email}`);
+            closeModal('signin');
+            
+            // In a real application, you would send this data to your authentication server
+            console.log('Sign in attempt:', { email, password });
+        }
+
+        function handleSignUp(event) {
+            event.preventDefault();
+            const form = event.target;
+            const firstName = form.querySelector('input[placeholder="John"]').value;
+            const lastName = form.querySelector('input[placeholder="Doe"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            const company = form.querySelector('input[placeholder="Your Company"]').value;
+            const password = form.querySelectorAll('input[type="password"]')[0].value;
+            const confirmPassword = form.querySelectorAll('input[type="password"]')[1].value;
+            
+            // Basic validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long!');
+                return;
+            }
+            
+            // Demo functionality - show success message
+            alert(`Account created successfully! Welcome ${firstName} ${lastName}!`);
+            closeModal('signup');
+            
+            // In a real application, you would send this data to your registration server
+            console.log('Sign up attempt:', { firstName, lastName, email, company, password });
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id.replace('-modal', '');
+                closeModal(modalId);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    const modalId = activeModal.id.replace('-modal', '');
+                    closeModal(modalId);
+                }
+            }
+        });
+
+        // Chat Bot Functionality
+        let chatOpen = false;
+        let chatHistory = [];
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            const chatButton = document.getElementById('chat-button');
+            
+            chatOpen = !chatOpen;
+            
+            if (chatOpen) {
+                chatWindow.classList.add('active');
+                chatButton.style.transform = 'scale(0.9)';
+                document.getElementById('chat-input').focus();
+            } else {
+                chatWindow.classList.remove('active');
+                chatButton.style.transform = 'scale(1)';
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate bot response
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 1000 + Math.random() * 2000);
+        }
+
+        function sendQuickMessage(message) {
+            addMessage(message, 'user');
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate bot response
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 1000 + Math.random() * 2000);
+        }
+
+        function addMessage(message, sender) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.className = `message-bubble ${sender}`;
+            bubbleDiv.textContent = message;
+            
+            messageDiv.appendChild(bubbleDiv);
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store in history
+            chatHistory.push({ message, sender, timestamp: new Date() });
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot';
+            typingDiv.id = 'typing-indicator-message';
+            
+            const typingBubble = document.createElement('div');
+            typingBubble.className = 'typing-indicator';
+            typingBubble.innerHTML = `
+                <span class="text-slate-400 text-sm">Assistant is typing</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            
+            typingDiv.appendChild(typingBubble);
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator-message');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Product-specific responses
+            if (lowerMessage.includes('maple') && !lowerMessage.includes('maplesim')) {
+                return "🍁 Maple is our flagship mathematical computing platform! It offers powerful symbolic computation, advanced numeric analysis, and interactive document creation. Perfect for research, education, and engineering applications. Would you like to schedule a demo or learn about specific features?";
+            }
+            
+            if (lowerMessage.includes('maplesim')) {
+                return "🔧 MapleSim is an advanced system-level modeling and simulation platform! It excels at multi-domain physical systems modeling with real-time simulation capabilities. Great for automotive, aerospace, and robotics applications. Interested in seeing it in action?";
+            }
+            
+            if (lowerMessage.includes('spss')) {
+                return "📊 IBM SPSS Statistics is our comprehensive statistical analysis solution! It provides advanced analytics, machine learning capabilities, and predictive modeling. Perfect for researchers, analysts, and data scientists. Would you like pricing information or a demo?";
+            }
+            
+            if (lowerMessage.includes('matlab')) {
+                return "🔬 MATLAB is the leading technical computing platform! Excellent for algorithm development, data analysis, and visualization with an extensive toolbox ecosystem. Used by millions of engineers and scientists worldwide. Need help choosing the right toolboxes?";
+            }
+            
+            if (lowerMessage.includes('simulink')) {
+                return "⚙️ Simulink provides a block diagram environment for multidomain simulation and Model-Based Design! Perfect for control systems, signal processing, and embedded systems development. Want to see how it integrates with MATLAB?";
+            }
+            
+            if (lowerMessage.includes('ansys')) {
+                return "🏗️ Ansys offers world-class engineering simulation software! Covers structural, thermal, fluid, and electromagnetic analysis with advanced multiphysics capabilities. Essential for product development and optimization. Interested in specific simulation types?";
+            }
+            
+            if (lowerMessage.includes('student success') || lowerMessage.includes('student platform')) {
+                return "🎓 Our Student Success Platform revolutionizes higher education! It improves student outcomes by 85%, reduces dropout rates by 40%, and provides comprehensive learning analytics. Perfect for universities and colleges. Would you like to see case studies or request a demo?";
+            }
+            
+            // Service-related responses
+            if (lowerMessage.includes('demo') || lowerMessage.includes('demonstration')) {
+                return "🎯 I'd be happy to arrange a personalized demo for you! Our experts can show you exactly how our solutions can benefit your organization. What specific products or areas are you most interested in? I can connect you with the right specialist.";
+            }
+            
+            if (lowerMessage.includes('pricing') || lowerMessage.includes('cost') || lowerMessage.includes('price')) {
+                return "💰 Our pricing varies based on your specific needs, organization size, and licensing requirements. I can connect you with our sales team for a customized quote. Which products are you interested in, and what's the size of your organization?";
+            }
+            
+            if (lowerMessage.includes('support') || lowerMessage.includes('help')) {
+                return "🛠️ We provide comprehensive 24/7 technical support, training programs, and implementation services! Our support includes remote troubleshooting, preventive maintenance, and expert consultation. What type of support are you looking for?";
+            }
+            
+            if (lowerMessage.includes('training') || lowerMessage.includes('learn')) {
+                return "📚 We offer extensive training programs including instructor-led workshops, online learning modules, and certification programs! Our training ensures maximum user adoption and proficiency. Which software are you interested in learning?";
+            }
+            
+            // General business responses
+            if (lowerMessage.includes('contact') || lowerMessage.includes('sales')) {
+                return "📞 You can reach our sales team at +91 98765 43210 or email sales@cybersync.in. We're also available through our contact form on the website. What's the best way for us to reach you?";
+            }
+            
+            if (lowerMessage.includes('partnership') || lowerMessage.includes('maplesoft')) {
+                return "🤝 Yes! We're the official Maplesoft partner in India, which means you get direct access to the latest technologies, expert support, and competitive pricing. This partnership ensures you receive the highest quality service and support.";
+            }
+            
+            // Greeting responses
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return "👋 Hello! Welcome to Cyber Sync! I'm here to help you learn about our mathematical computing, statistical analysis, and educational technology solutions. What can I assist you with today?";
+            }
+            
+            if (lowerMessage.includes('thank')) {
+                return "😊 You're very welcome! I'm always here to help. Is there anything else you'd like to know about our products or services?";
+            }
+            
+            // Default responses
+            const defaultResponses = [
+                "I'd be happy to help you with that! Could you provide more details about what you're looking for? I can assist with information about our products, services, pricing, or demos.",
+                "That's a great question! Let me connect you with the right information. Are you interested in our mathematical computing tools, statistical software, or educational platforms?",
+                "I want to make sure I give you the most accurate information. Could you tell me more about your specific needs or which products you're considering?",
+                "Thanks for reaching out! I can help you with product information, demos, pricing, or technical questions. What would be most helpful for you right now?"
+            ];
+            
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97844f11b5aa441b',t:'MTc1NjcyNDg5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
